@@ -1,0 +1,77 @@
+@font-face{
+  font-family: 'SNRoPetit';
+  src: url('./fonts/SNRoPetit.ttf') format('truetype');
+}
+
+body{
+  font-family: 'SNRoPetit';
+  background-color: black;
+  padding-bottom: 10px;
+  padding-left: 5px;
+}
+
+.main{
+  color: white
+}
+
+.warning{
+  color: yellow
+}
+
+.success{
+  background-color: rgb(167, 164, 164);
+  border-radius: 10px;
+  margin: 0;
+  padding: 20px;
+  color: green;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  font-size: 5em;
+}
+
+.alert{
+  padding: 10px;
+  margin: 0;
+  border-radius: 10px;
+  color: white;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  font-size: 3em;
+}
+
+.areyouready{
+  background-color: rgb(255, 226, 129);
+  border: solid rgb(253, 194, 0) 5px;
+}
+
+.error{
+  background-color: rgb(255, 0, 0);
+  border: solid rgb(204, 36, 36) 5px;
+  width: 90%;
+  font-size: 2em;
+  overflow: hidden;
+}
+
+.alert-div{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.text{
+  width: auto;
+  font-size: 1.1em;
+  border-right: 10px #aaa solid;
+  display: table;
+  margin: 0;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: chartreuse;
+}
