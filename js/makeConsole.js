@@ -67,7 +67,13 @@ let hackingContents = {
     "Fatal Error:Devola and Popola is very cute."
   ],
   errorIdList: [], //現在表示しているエラーIDを格納する配列
-  isPhone: false //スマホかどうか
+  isPhone: false, //スマホかどうか
+  deleteCursor: false,
+  isViewFooter: true,
+  colorObj: {
+    colorType: ['chartreuse', 'white'],
+    nowColorIndex: 0
+  }
 }
 
 //スマホモードかどうかを非同期通信で確認
@@ -120,6 +126,22 @@ function createNewErorr (id) {
   hackingContents.errorIdList.push(id)
 }
 
+function ChangeTextColor () {
+  const targetColorText = hackingContents.colorObj.colorType[hackingContents.colorObj.nowColorIndex]
+  for (let i = 0; i < hackingContents.colorObj.colorType.length; i++) {
+    const isTarget = document.getElementById(targetColorText + 'Font') === document.getElementById(hackingContents.colorObj.colorType[i] + 'Font')
+    if (isTarget) {
+      const elements = document.getElementsByClassName('text')
+      for (let i = 0; i < elements.length; i++) {
+        elements[i].style.color = targetColorText
+      }
+      document.getElementById(hackingContents.colorObj.colorType[i] + 'Font').style.opacity = '0.5'
+    } else {
+      document.getElementById(hackingContents.colorObj.colorType[i] + 'Font').style.opacity = '1'
+    }
+  }
+}
+
 createNewP(hackingContents.nowTextCount) //初回のタグ生成
 
 /**
@@ -158,7 +180,18 @@ document.addEventListener("keydown", event => {
     }
     return
   }
-  if (key != "Enter") {   // エンターキーでなければ
+  else if (key === 'Control') {
+    document.getElementById('footer').style.display = 'block'
+    hackingContents.isViewFooter = true
+  } else if (key !== 'Enter') {   // エンターキーでなければ
+    if ((key === 'ArrowLeft' || key === 'ArrowRight') && hackingContents.isViewFooter) {
+      if (key === 'ArrowLeft' && hackingContents.colorObj.nowColorIndex != 0) hackingContents.colorObj.nowColorIndex--
+      else if (key === 'ArrowRight' && hackingContents.colorObj.nowColorIndex + 1 !== hackingContents.colorObj.colorType.length) hackingContents.colorObj.nowColorIndex++
+      ChangeTextColor()
+    } else {
+      document.getElementById('footer').style.display = 'none'
+      hackingContents.isViewFooter = false
+    }
     // 全ての文字を打ち切れたら
     if (hackingContents.nowTextCount == hackingContents.text.length) {
       CompleteHacking()
@@ -192,6 +225,7 @@ document.addEventListener("keydown", event => {
       let element = document.documentElement
       let bottom = element.scrollHeight - element.clientHeight
       window.scroll(0, bottom)
+      ChangeTextColor()
     }
   }else if (key == "Enter" && hackingContents.complete && !hackingContents.end) {
     // コンプリート
@@ -228,3 +262,10 @@ document.addEventListener("keydown", event => {
     }, 5000)
   }
 })
+
+/* カーソルの点滅を行う */
+setInterval(() => {
+  hackingContents.deleteCursor = !hackingContents.deleteCursor
+  if (hackingContents.deleteCursor) document.getElementById(`text-${hackingContents.nowTextCount}`).style.borderRight = "solid #000 0px"
+  else document.getElementById(`text-${hackingContents.nowTextCount}`).style.borderRight = "10px #aaa solid"
+}, 1 * 1000)

@@ -75,3 +75,18 @@ body{
   margin-bottom: 20px;
   color: chartreuse;
 }
+
+.footer {
+  position: fixed;
+  bottom:  0%;
+  left: 0;
+  width: 100%;
+  border-top: solid 2px chartreuse;
+  z-index: 2;
+  background-color: black;
+}
+
+.font-color-text{
+  margin-left: 10px;
+  margin-right: 10px;
+}
